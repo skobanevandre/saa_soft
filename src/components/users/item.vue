@@ -14,6 +14,12 @@
     { name: 'LDAP', value: 'LDAP' },
   ] )
 
+  const errorFields = ref( {
+    login: false,
+    pass: false,
+    recordType: false
+  } )
+
   const userData = ref( {
     login: '',
     pass: '',
@@ -50,6 +56,17 @@
     emit( 'delete', props.id )
   }
 
+  const validate = () => {
+    errorFields.value.login = false
+    errorFields.value.pass = false
+    errorFields.value.recordType = false
+
+    if ( !userData.value.login ) errorFields.value.login = true
+    if ( !userData.value.recordType ) errorFields.value.recordType = true
+
+    if ( userData.value.recordType !== 'LDAP' && !userData.value.pass ) errorFields.value.pass = true
+  }
+
   watch ( 
     () => [ userData.value.recordType, userData.value.login, userData.value.pass, userData.value.labels ] ,
     () => { console.log( userData.value ) } 
@@ -71,20 +88,36 @@
         class="w-full" 
         option-label="name"
         option-value="value"
+        @change="validate()"
+        :invalid="errorFields.recordType"
       />
     </div>
 
     <div class="flex-2 flex gap-2" >
       
       <div class="flex-1">
-        <PrimeInputText v-model="userData.login" maxlength="100" fluid/>
+        <PrimeInputText 
+          v-model="userData.login" 
+          maxlength="100" 
+          fluid 
+          :invalid="errorFields.login"
+          @blur="validate()"
+        />
       </div>
 
       <div 
         v-if="userData.recordType !== 'LDAP'"
         :class="userData.recordType !== 'LDAP' ? 'flex-1' : 'flex-2'"
       >
-        <PrimePassword v-model="storedPass" maxlength="100" :feedback="false" toggleMask fluid />
+        <PrimePassword 
+          v-model="storedPass" 
+          maxlength="100" 
+          :feedback="false" 
+          toggleMask 
+          fluid 
+          :invalid="errorFields.pass"
+          @blur="validate()"
+        />
       </div>
     </div>  
 
