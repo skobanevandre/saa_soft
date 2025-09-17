@@ -6,6 +6,7 @@ import router from './router'
 import PrimeVue from 'primevue/config'
 import Lara from '@primevue/themes/lara'
 import './main.css'
+import 'primeicons/primeicons.css'
 
 const app = createApp(App)
 
