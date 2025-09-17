@@ -1,11 +1,9 @@
-<script setup lang="ts">
-import VueLayout from './layout.vue'
-import PrimeButton from 'primevue/button';
+<script setup>
+  import VueLayout from './layout.vue'
 </script>
 
 <template>
   <VueLayout>
-
   </VueLayout>
 </template>
 
