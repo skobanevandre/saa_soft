@@ -1,6 +1,6 @@
 <script setup>
-  import VueLayout from '@/layouts/deflayout.vue'
-  import Users from '@/components/users/index.vue'
+  import VueLayout from '@/layouts/TheLayout.vue'
+  import Users from '@/components/users/TheIndex.vue'
   
   import testStore from '@/stores/user.js'
   const store = testStore()  

@@ -1,6 +1,6 @@
 <script setup>
   import testStore from '@/stores/user.js'
-  import UserItem from '@/components/users/item.vue'
+  import UserItem from '@/components/users/TheItem.vue'
   const store = testStore()
 </script>
 

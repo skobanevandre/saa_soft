@@ -1,6 +1,6 @@
 <script setup>
   import PrimeButton from 'primevue/button'
-  import UsersList from '@/components/users/list.vue'
+  import UsersList from '@/components/users/TheList.vue'
 
   import testStore from '@/stores/user.js'
   const store = testStore()
