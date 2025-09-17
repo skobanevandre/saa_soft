@@ -1,6 +1,5 @@
 <script setup>
   import PrimeDivider from 'primevue/divider'
-  import Legend from './components/legend.vue'
 </script>
 
 <template>
@@ -8,6 +7,5 @@
     <h1 class="font-semibold text-2xl mb-2">Тестовое задание для Vue Frontend Developer</h1>
     <PrimeDivider />
     <slot></slot>
-    <!-- <Legend /> -->
   </div>
 </template>

@@ -8,5 +8,3 @@
     <Users />
   </VueLayout>
 </template>
-
-<style scoped></style>
