@@ -2,8 +2,12 @@
   import { ref, computed, watch } from 'vue'
   import PrimeInputText from 'primevue/inputtext'
   import PrimeSelect from 'primevue/select'
+  import PrimePassword from 'primevue/password'
 
-  const pass = ref( '' )
+  const props = defineProps( { id: { type: Number, default: 0 } } )
+  const emit = defineEmits( [ 'delete' ] )
+
+  const storedPass = ref( '' )
 
   const recordTypes = ref( [
     { name: 'Локальная', value: 'LOCAL' },
@@ -31,6 +35,20 @@
     }
   } )
 
+  watch ( 
+    () => [ userData.value.recordType, storedPass.value ],
+    () => { 
+      if ( userData.value.recordType === 'LDAP' ) {
+        userData.value.pass = null
+      } else {
+        userData.value.pass = storedPass.value
+      }
+    }
+  )
+
+  const deleteItem = () => {
+    emit( 'delete', props.id )
+  }
 
   watch ( 
     () => [ userData.value.recordType, userData.value.login, userData.value.pass, userData.value.labels ] ,
@@ -56,21 +74,21 @@
       />
     </div>
 
-    <div class="flex-2 flex gap-2">
+    <div class="flex-2 flex gap-2" >
       
       <div class="flex-1">
-        <PrimeInputText class="w-full" />
+        <PrimeInputText v-model="userData.login" maxlength="100" fluid/>
       </div>
 
       <div 
         v-if="userData.recordType !== 'LDAP'"
         :class="userData.recordType !== 'LDAP' ? 'flex-1' : 'flex-2'"
       >
-        <PrimeInputText class="w-full" />
+        <PrimePassword v-model="storedPass" maxlength="100" :feedback="false" toggleMask fluid />
       </div>
     </div>  
 
-    <div class="flex items-center">
+    <div class="flex items-center cursor-pointer" @click="deleteItem()">
       <i class="pi pi-trash !text-2xl text-slate-600" />
     </div>
 
